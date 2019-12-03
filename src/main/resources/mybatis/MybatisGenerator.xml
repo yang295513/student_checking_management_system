@@ -43,7 +43,7 @@
         <!--        指定每个表的生成策略-->
         <table tableName="class_info" domainObjectName="ClassInfo"/>
         <table tableName="class_score_info" domainObjectName="ClassScoreInfo"/>
-        <table tableName="cur_info" domainObjectName="curInfo"></table>
+        <table tableName="cur_info" domainObjectName="CurInfo"></table>
         <table tableName="cur_score_info" domainObjectName="CurScoreInfo"></table>
         <table tableName="score" domainObjectName="Score"></table>
         <table tableName="stu_info" domainObjectName="StuInfo"></table>
