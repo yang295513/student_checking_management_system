@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /manage
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.qs304.student_checking_management_system.entity
+spring:
+  profiles:
+    active: dev
+  http:
+    encoding:
+      charset: UTF-8
+      force: true

@@ -9,5 +9,4 @@ class StudentCheckingManagementSystemApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

@@ -1,0 +1,8 @@
+spring:
+  devtools:
+    restart:
+      enabled: true #开启热部署
+  freemarker:
+    cache: false
+  datasource:
+
