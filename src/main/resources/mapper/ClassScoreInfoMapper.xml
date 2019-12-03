@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qs304.student_checking_management_system.mapper.ClassScoreInfoMapper">
+  <resultMap id="BaseResultMap" type="com.qs304.student_checking_management_system.entity.ClassScoreInfo">
+    <result column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="class_sum_usuScore" jdbcType="DOUBLE" property="classSumUsuscore" />
+    <result column="class_avg_usuScore" jdbcType="DOUBLE" property="classAvgUsuscore" />
+    <result column="class_sum_testScore" jdbcType="DOUBLE" property="classSumTestscore" />
+    <result column="class_avg_testScore" jdbcType="DOUBLE" property="classAvgTestscore" />
+    <result column="class_sum_finalScore" jdbcType="DOUBLE" property="classSumFinalscore" />
+    <result column="class_avg_finalScore" jdbcType="DOUBLE" property="classAvgFinalscore" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    class_id, class_sum_usuScore, class_avg_usuScore, class_sum_testScore, class_avg_testScore, 
+    class_sum_finalScore, class_avg_finalScore
+  </sql>
+  <select id="selectByExample" parameterType="com.qs304.student_checking_management_system.entity.ClassScoreInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from class_score_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.qs304.student_checking_management_system.entity.ClassScoreInfoExample">
+    delete from class_score_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qs304.student_checking_management_system.entity.ClassScoreInfo">
+    insert into class_score_info (class_id, class_sum_usuScore, class_avg_usuScore, 
+      class_sum_testScore, class_avg_testScore, class_sum_finalScore, 
+      class_avg_finalScore)
+    values (#{classId,jdbcType=INTEGER}, #{classSumUsuscore,jdbcType=DOUBLE}, #{classAvgUsuscore,jdbcType=DOUBLE}, 
+      #{classSumTestscore,jdbcType=DOUBLE}, #{classAvgTestscore,jdbcType=DOUBLE}, #{classSumFinalscore,jdbcType=DOUBLE}, 
+      #{classAvgFinalscore,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qs304.student_checking_management_system.entity.ClassScoreInfo">
+    insert into class_score_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        class_id,
+      </if>
+      <if test="classSumUsuscore != null">
+        class_sum_usuScore,
+      </if>
+      <if test="classAvgUsuscore != null">
+        class_avg_usuScore,
+      </if>
+      <if test="classSumTestscore != null">
+        class_sum_testScore,
+      </if>
+      <if test="classAvgTestscore != null">
+        class_avg_testScore,
+      </if>
+      <if test="classSumFinalscore != null">
+        class_sum_finalScore,
+      </if>
+      <if test="classAvgFinalscore != null">
+        class_avg_finalScore,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classId != null">
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="classSumUsuscore != null">
+        #{classSumUsuscore,jdbcType=DOUBLE},
+      </if>
+      <if test="classAvgUsuscore != null">
+        #{classAvgUsuscore,jdbcType=DOUBLE},
+      </if>
+      <if test="classSumTestscore != null">
+        #{classSumTestscore,jdbcType=DOUBLE},
+      </if>
+      <if test="classAvgTestscore != null">
+        #{classAvgTestscore,jdbcType=DOUBLE},
+      </if>
+      <if test="classSumFinalscore != null">
+        #{classSumFinalscore,jdbcType=DOUBLE},
+      </if>
+      <if test="classAvgFinalscore != null">
+        #{classAvgFinalscore,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qs304.student_checking_management_system.entity.ClassScoreInfoExample" resultType="java.lang.Long">
+    select count(*) from class_score_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update class_score_info
+    <set>
+      <if test="record.classId != null">
+        class_id = #{record.classId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classSumUsuscore != null">
+        class_sum_usuScore = #{record.classSumUsuscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.classAvgUsuscore != null">
+        class_avg_usuScore = #{record.classAvgUsuscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.classSumTestscore != null">
+        class_sum_testScore = #{record.classSumTestscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.classAvgTestscore != null">
+        class_avg_testScore = #{record.classAvgTestscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.classSumFinalscore != null">
+        class_sum_finalScore = #{record.classSumFinalscore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.classAvgFinalscore != null">
+        class_avg_finalScore = #{record.classAvgFinalscore,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update class_score_info
+    set class_id = #{record.classId,jdbcType=INTEGER},
+      class_sum_usuScore = #{record.classSumUsuscore,jdbcType=DOUBLE},
+      class_avg_usuScore = #{record.classAvgUsuscore,jdbcType=DOUBLE},
+      class_sum_testScore = #{record.classSumTestscore,jdbcType=DOUBLE},
+      class_avg_testScore = #{record.classAvgTestscore,jdbcType=DOUBLE},
+      class_sum_finalScore = #{record.classSumFinalscore,jdbcType=DOUBLE},
+      class_avg_finalScore = #{record.classAvgFinalscore,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
