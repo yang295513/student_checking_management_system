@@ -8,10 +8,10 @@
 
     <title>INSPINIA | Dashboard v.4</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
 </head>
 
@@ -29,15 +29,15 @@
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                        <li class="active">
-                            <a aria-expanded="false" role="button" href="mem_index.html"> 班级信息管理</a>
+                        <li class="dropdown">
+                            <a aria-expanded="false" role="button" href="classList"> 班级信息管理</a>
                         </li>
 
                         <li class="dropdown">
-                            <a aria-expanded="false" role="button" href="mem_index_all_list.html">学生信息管理</a>
+                            <a aria-expanded="false" role="button" href="stuList">学生信息管理</a>
                         </li>
-                        <li class="dropdown">
-                            <a aria-expanded="false" role="button" href="search_join_team.html"> 学生分数管理</a>
+                        <li class="active">
+                            <a aria-expanded="false" role="button" href="curList"> 学生分数管理</a>
                         </li>
                         <li class="dropdown">
                             <a aria-expanded="false" role="button" href="join_team_list.html"> 查重管理</a>
@@ -74,18 +74,13 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>班级名称</th>
-                            <th>操作</th>
+                            <th>课程名称</th>
+                            <th>课时</th>
+                            <th>学分</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <th>1</th>
-                            <th>JAVA1班</th>
-                            <th>
-                                <button type="button" class="btn btn-w-m btn-info btn-xs" data-toggle="modal" data-target="#myModal">删除</button>
-                            </th>
-                        </tr>
+                        <tbody id="tbody">
+
                         </tbody>
                     </table>
 
@@ -136,35 +131,60 @@
 
 
 <!-- Mainly scripts -->
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../js/jquery-2.1.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
+<script src="../js/inspinia.js"></script>
+<script src="../js/plugins/pace/pace.min.js"></script>
 
 <!-- Flot -->
-<script src="js/plugins/flot/jquery.flot.js"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="../js/plugins/flot/jquery.flot.js"></script>
+<script src="../js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="../js/plugins/flot/jquery.flot.resize.js"></script>
 
 <!-- ChartJS-->
-<script src="js/plugins/chartJs/Chart.min.js"></script>
+<script src="../js/plugins/chartJs/Chart.min.js"></script>
 
 <!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
+<script src="../js/plugins/peity/jquery.peity.min.js"></script>
 <!-- Peity demo -->
-<script src="js/demo/peity-demo.js"></script>
+<script src="../js/demo/peity-demo.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <script>
-    $(document).ready(function () {
-        $("button[value='报名']").click(function () {
-            $("myModal").modal(options);
-        });
-    });
+    function del(id){
+
+    }
+    $(function () {
+        $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"getCurInfoAll",
+            success:function (result) {
+                if (result.code==200){
+
+                    for(var i=0;i<result.data.length;i++){
+                        var hang=result.data[i];
+                        var html="                        <tr>\n" +
+                               "                            <th>"+(i+1)+"</th>\n" +
+                            "                            <th>"+hang.curName+"</th>\n" +
+                            "                            <th>"+hang.curLearntime+"</th>\n" +
+                            "                            <th>"+hang.curScore+"</th>\n" +
+                               "                        </tr>";
+                        $("#tbody").append(html);
+                    }
+                }else{
+                    swal(result.msg);
+                }
+            },error:function (result) {
+                swal(result.msg);
+            }
+        })
+    })
 </script>
 
 </body>

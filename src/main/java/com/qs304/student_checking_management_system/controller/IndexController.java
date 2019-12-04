@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/index")
+@RestController
 public class IndexController {
     @Autowired
     Service service;
@@ -60,6 +62,26 @@ public class IndexController {
             jsonObject.put("code",200);
             jsonObject.put("msg","获取成功");
             jsonObject.put("data",service.getStuInfoAllWithClassInfo());
+        }catch (Exception e){
+            jsonObject.put("code",500);
+            jsonObject.put("msg",e.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * 获取所有的课程信息
+     * @return
+     */
+    @GetMapping(value = "/getCurInfoAll",produces = "application/json;charset=utf-8")
+    public JSONObject getCurInfoAll(){
+        JSONObject jsonObject=new JSONObject();
+
+        try {
+            jsonObject.put("code",200);
+            jsonObject.put("msg","获取成功");
+            jsonObject.put("data",service.getCurInfoAll());
         }catch (Exception e){
             jsonObject.put("code",500);
             jsonObject.put("msg",e.getMessage());

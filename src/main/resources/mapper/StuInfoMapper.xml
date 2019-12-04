@@ -82,10 +82,8 @@
     stu_id, stu_name, stu_sex, stu_school, stu_classId, stu_phoneNumber
   </sql>
 
-
-
   <select id="getStuInfoAllWithClassInfo" resultMap="StuInfoWithClassInfoMap">
-    select * from stu_info
+    select * from stu_info,class_info where stu_info.stu_classId=class_info.class_id
   </select>
   <select id="selectByExample" parameterType="com.qs304.student_checking_management_system.entity.StuInfoExample" resultMap="BaseResultMap">
     select
