@@ -2,8 +2,9 @@ package com.qs304.student_checking_management_system.mapper;
 
 import com.qs304.student_checking_management_system.entity.StuInfo;
 import com.qs304.student_checking_management_system.entity.StuInfoExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface StuInfoMapper {
     long countByExample(StuInfoExample example);
@@ -27,4 +28,8 @@ public interface StuInfoMapper {
     int updateByPrimaryKeySelective(StuInfo record);
 
     int updateByPrimaryKey(StuInfo record);
+
+    List<StuInfo> getStuInfoAllWithClassInfo();
+
+
 }

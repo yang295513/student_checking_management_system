@@ -13,6 +13,29 @@ public class StuInfo {
 
     private String stuPhonenumber;
 
+    private ClassInfo classInfo;
+
+    @Override
+    public String toString() {
+        return "StuInfo{" +
+                "stuId=" + stuId +
+                ", stuName='" + stuName + '\'' +
+                ", stuSex='" + stuSex + '\'' +
+                ", stuSchool='" + stuSchool + '\'' +
+                ", stuClassid=" + stuClassid +
+                ", stuPhonenumber='" + stuPhonenumber + '\'' +
+                ", classInfo=" + classInfo +
+                '}';
+    }
+
+    public ClassInfo getClassInfo() {
+        return classInfo;
+    }
+
+    public void setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
+    }
+
     public Integer getStuId() {
         return stuId;
     }

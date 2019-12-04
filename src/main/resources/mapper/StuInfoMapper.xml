@@ -9,6 +9,17 @@
     <result column="stu_classId" jdbcType="INTEGER" property="stuClassid" />
     <result column="stu_phoneNumber" jdbcType="VARCHAR" property="stuPhonenumber" />
   </resultMap>
+  <resultMap id="StuInfoWithClassInfoMap" type="com.qs304.student_checking_management_system.entity.StuInfo">
+    <id column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+    <result column="stu_sex" jdbcType="VARCHAR" property="stuSex" />
+    <result column="stu_school" jdbcType="VARCHAR" property="stuSchool" />
+    <result column="stu_phoneNumber" jdbcType="VARCHAR" property="stuPhonenumber" />
+    <association property="classInfo" column="stu_classId">
+      <id property="classId" column="class_id"></id>
+      <result property="className" column="class_name"></result>
+    </association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,6 +81,12 @@
   <sql id="Base_Column_List">
     stu_id, stu_name, stu_sex, stu_school, stu_classId, stu_phoneNumber
   </sql>
+
+
+
+  <select id="getStuInfoAllWithClassInfo" resultMap="StuInfoWithClassInfoMap">
+    select * from stu_info
+  </select>
   <select id="selectByExample" parameterType="com.qs304.student_checking_management_system.entity.StuInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

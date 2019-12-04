@@ -68,6 +68,9 @@
   <sql id="Base_Column_List">
     cur_id, cur_name, cur_learnTime, cur_score
   </sql>
+  <select id="getCurInfoAll" resultMap="BaseResultMap">
+    select * from cur_info
+  </select>
   <select id="selectByExample" parameterType="com.qs304.student_checking_management_system.entity.CurInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

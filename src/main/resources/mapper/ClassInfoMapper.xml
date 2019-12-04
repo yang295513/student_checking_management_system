@@ -5,6 +5,17 @@
     <id column="class_id" jdbcType="INTEGER" property="classId" />
     <result column="class_name" jdbcType="VARCHAR" property="className" />
   </resultMap>
+  <resultMap id="BaseResultMapWithStuInfo" type="com.qs304.student_checking_management_system.entity.ClassInfo">
+    <id column="class_id" jdbcType="INTEGER" property="classId" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
+    <collection property="stuInfoList" ofType="StuInfo">
+      <id property="stuId" column="stu_id"></id>
+      <result property="stuName" column="stu_name"></result>
+      <result property="stuSex" column="stu_sex"></result>
+      <result property="stuSchool" column="stu_school"></result>
+      <result property="stuPhonenumber" column="stu_phoneNumber"></result>
+    </collection>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -66,6 +77,11 @@
   <sql id="Base_Column_List">
     class_id, class_name
   </sql>
+
+  <select id="getClassInfoWithStuInfo" resultMap="BaseResultMapWithStuInfo">
+    select class_info.*,stu_info.* from class_info,stu_info where stu_info.stu_classId=class_info.class_id AND stu_info.stu_classId=#{classId}
+  </select>
+
   <select id="selectByExample" parameterType="com.qs304.student_checking_management_system.entity.ClassInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -119,6 +135,9 @@
       </if>
     </trim>
   </insert>
+  <select id="getClassInfoAll" resultMap="BaseResultMap">
+    select * from class_info
+  </select>
   <select id="countByExample" parameterType="com.qs304.student_checking_management_system.entity.ClassInfoExample" resultType="java.lang.Long">
     select count(*) from class_info
     <if test="_parameter != null">
