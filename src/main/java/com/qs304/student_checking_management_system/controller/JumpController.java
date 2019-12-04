@@ -18,4 +18,8 @@ public class JumpController {
     public String jumpGetCurList(){
         return "cur_list";
     }
+    @RequestMapping("index/classInfo")
+    public String jumpGetClassInfo(){
+        return "class_info";
+    }
 }

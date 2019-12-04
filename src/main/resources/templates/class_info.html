@@ -29,7 +29,7 @@
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li class="dropdown">
                             <a aria-expanded="false" role="button" href="classList"> 班级信息管理</a>
                         </li>
                         <li class="dropdown">
@@ -73,8 +73,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>班级名称</th>
-                            <th>操作</th>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>手机号</th>
                         </tr>
                         </thead>
                         <tbody id="tbody">
@@ -156,37 +158,23 @@
 <script>
     function del(id){
 
-    };
-    function get(id){
-        $.ajax({
-            type:"get",
-            dataType:"json",
-            url:"../set/setClassId",
-            data:{"classId":id},
-            success:function (result) {
-                console.log(result);
-                if(result.code==200){
-                    document.location.href="classInfo";
-                }
-            }
-        })
     }
     $(function () {
         $.ajax({
-            type:"get",
+            type:"post",
             dataType:"json",
-            url:"getClassInfoAll",
+            url:"getStuInfoInClassbyclassId",
             success:function (result) {
                 if (result.code==200){
 
-                    for(var i=0;i<result.data.length;i++){
-                        var hang=result.data[i];
+                    for(var i=0;i<result.data.stuInfoList.length;i++){
+                        var hang=result.data.stuInfoList[i];
                         var html="<tr>\n" +
                             "                            <th>"+(i+1)+"</th>\n" +
-                            "                           <th><a onclick='get("+hang.classId+")'>"+hang.className+"</a></th>\n" +
-                        "                            <th>\n" +
-                        "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.classId+")\">删除</button>\n" +
-                        "                            </th>\n" +
+                            "                            <th>"+hang.stuId+"</th>\n" +
+                            "                            <th>"+hang.stuName+"</th>\n" +
+                            "                            <th>"+(hang.stuSex=='F'?'女':'男')+"</th>\n" +
+                            "                            <th>"+hang.stuPhonenumber+"</th>\n" +
                         "                        </tr>";
                         $("#tbody").append(html);
                     }
