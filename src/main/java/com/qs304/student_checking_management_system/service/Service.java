@@ -133,4 +133,22 @@ public class Service {
         return classInfoMapper.getClassInfoWithStuInfo(classId);
     }
 
+    /**
+     * 根据id删除该学生
+     * @param stuId
+     * @return
+     */
+    public Integer deleteStuInfoById(Integer stuId){
+        return stuInfoMapper.deleteByPrimaryKey(stuId);
+    }
+
+    /**
+     * 根据id删除该班级
+     * @param classId 班级号
+     * @return
+     */
+    public Integer deleteClassInfoById(Integer classId){
+        return classInfoMapper.deleteByPrimaryKey(classId);
+    }
+
 }
