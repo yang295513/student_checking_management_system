@@ -158,6 +158,27 @@
 
 
 <script>
+    function setScore(sutId) {
+
+        var usu="usu"+sutId;
+        var fin="fin"+sutId;
+        var sum="sum"+sutId;
+
+        // String stuId,String usuScore,String finalScore
+        console.log(usu,fin,sum,$(fin.toString()).val());
+
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"../set/setScore",
+            data:{"usuScore":$(usu).val(),"stuId":sutId,"finalScore":$(fin).val()},
+            success:function (result) {
+                swal(result.msg);
+                window.location.reload();
+            }
+        });
+    }
+
     function del(id){
 
     }
@@ -174,11 +195,11 @@
                         var html="<tr></tr><th>1</th>\n" +
                             "                        <th>"+hang.stuId+"</th>\n" +
                             "                        <th>"+hang.stuInfo.stuName+"</th>\n" +
-                            "                        <th><input type=\"text\" placeholder=\"平时成绩\" value='"+(hang.curUsuscore!=null?hang.curUsuscore:0)+"'></th>\n" +
-                            "                        <th><input type=\"text\" placeholder=\"期末成绩\" value='"+(hang.curFinalscore!=null?hang.curFinalscore:0)+"'></th>\n" +
-                            "                        <th><input type=\"text\" placeholder=\"最终成绩\" value='"+(hang.curSumFinalscore!=null?hang.curSumFinalscore:0)+"'></th>\n" +
+                            "                        <th><input id='"+("usu"+hang.stuId)+"' type=\"text\" placeholder=\"平时成绩\" value='"+(hang.curUsuscore!=null?hang.curUsuscore:0)+"'></th>\n" +
+                            "                        <th><input id='"+("fin"+hang.stuId)+"' type=\"text\" placeholder=\"期末成绩\" value='"+(hang.curFinalscore!=null?hang.curFinalscore:0)+"'></th>\n" +
+                            "                        <th><input id='"+("sum"+hang.stuId)+"' type=\"text\" placeholder=\"最终成绩\" value='"+(hang.curSumFinalscore!=null?hang.curSumFinalscore:0)+"'></th>\n" +
                             "                        <th>\n" +
-                            "                            <button>确认</button><button>取消</button>\n" +
+                            "                            <button onclick='setScore("+hang.stuId+")'>确认</button><button>取消</button>\n" +
                             "                        </th></tr>";
                         $("#tbody").append(html);
                     }
