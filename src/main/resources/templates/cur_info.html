@@ -29,7 +29,7 @@
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li class="dropdown">
                             <a aria-expanded="false" role="button" href="classList"> 班级信息管理</a>
                         </li>
                         <li class="dropdown">
@@ -59,7 +59,6 @@
                 <div class="ibox-title">
                     <h5>班级列表 </h5>
                     <div class="ibox-tools">
-                        <button class="btn btn-w-m btn-info" data-toggle="modal" data-target="#myModal">添加</button>
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
@@ -74,7 +73,11 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>班级名称</th>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>平时成绩</th>
+                            <th>期末成绩</th>
+                            <th>最终成绩</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -91,20 +94,24 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span
                                             aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+
                                     <i class="fa fa-laptop modal-icon"></i>
-                                    <h4 class="modal-title">请输入班级名称</h4>
+                                    <h4 class="modal-title">邀请码</h4>
+                                    <small class="font-bold">请输入你的邀请码</small>
+
                                 </div>
 
                                 <div class="modal-body">
 
+                                    <p><strong>邀请码</strong> 没有邀请码点击继续即可</p>
 
-                                    <div class="form-group"><label>班级名</label> <input id="class_name" type="email"
-                                                                                       placeholder="班级名称"
+                                    <div class="form-group"><label>样品输入</label> <input type="email"
+                                                                                       placeholder="比赛邀请码"
                                                                                        class="form-control"></div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                    <button type="button" class="btn btn-primary" onclick="add()">确认</button>
+                                    <button type="button" class="btn btn-primary">确认</button>
                                 </div>
                             </div>
                         </div>
@@ -151,74 +158,28 @@
 
 
 <script>
-    
-    function add() {
-        $.ajax({
-            type:"post",
-            dataType:"json",
-            url:"../set/addClassInfo",
-            data:{"className":$("#class_name").val()},
-            success:function (result) {
-                console.log(result);
-                if(result.code==200){
-                    swal("添加成功").then(function (value) {
-                        window.location.reload();
-                    })
-                }else{
-                    swal("添加失败");
-                }
-            }
-        })
-    }
-    
     function del(id){
-        $.ajax({
-            type:"get",
-            dataType:"json",
-            url:"../set/deleteClassInfoById",
-            data:{"classId":id},
-            success:function (result) {
-                if(result.code==200){
-                    swal(result.msg).then(function (value) {
-                        window.location.reload();
-                    });
-                }else{
-                    swal(result.msg);
-                }
-            }
-        })
-    };
-    function get(id){
-        $.ajax({
-            type:"get",
-            dataType:"json",
-            url:"../set/setClassId",
-            data:{"classId":id},
-            success:function (result) {
-                console.log(result);
-                if(result.code==200){
-                    document.location.href="classInfo";
-                }
-            }
-        })
+
     }
     $(function () {
         $.ajax({
             type:"get",
             dataType:"json",
-            url:"getClassInfoAll",
+            url:"getCurScoreInfoWIthStuInfo",
             success:function (result) {
                 if (result.code==200){
 
                     for(var i=0;i<result.data.length;i++){
                         var hang=result.data[i];
-                        var html="<tr>\n" +
-                            "                            <th>"+(i+1)+"</th>\n" +
-                            "                           <th><a onclick='get("+hang.classId+")'>"+hang.className+"</a></th>\n" +
-                        "                            <th>\n" +
-                        "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.classId+")\">删除</button>\n" +
-                        "                            </th>\n" +
-                        "                        </tr>";
+                        var html="<tr></tr><th>1</th>\n" +
+                            "                        <th>"+hang.stuId+"</th>\n" +
+                            "                        <th>"+hang.stuInfo.stuName+"</th>\n" +
+                            "                        <th><input type=\"text\" placeholder=\"平时成绩\" value='"+(hang.curUsuscore!=null?hang.curUsuscore:0)+"'></th>\n" +
+                            "                        <th><input type=\"text\" placeholder=\"期末成绩\" value='"+(hang.curFinalscore!=null?hang.curFinalscore:0)+"'></th>\n" +
+                            "                        <th><input type=\"text\" placeholder=\"最终成绩\" value='"+(hang.curSumFinalscore!=null?hang.curSumFinalscore:0)+"'></th>\n" +
+                            "                        <th>\n" +
+                            "                            <button>确认</button><button>取消</button>\n" +
+                            "                        </th></tr>";
                         $("#tbody").append(html);
                     }
                 }else{

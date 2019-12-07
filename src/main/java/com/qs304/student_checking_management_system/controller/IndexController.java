@@ -99,4 +99,29 @@ public class IndexController {
         return jsonObject;
     }
 
+    /**
+     * 获取指定班级号的所有学生成绩
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "/getCurScoreInfoWIthStuInfo",produces = "application/json;charset=utf-8")
+    public JSONObject getCurScoreInfoWithStuInfo(HttpServletRequest request){
+        JSONObject jsonObject=new JSONObject();
+        HttpSession session=request.getSession();
+        Integer curId;
+
+        try {
+            curId=new Integer(session.getAttribute("curId").toString());
+            jsonObject.put("code",200);
+            jsonObject.put("msg","获取成功");
+            jsonObject.put("data",service.getCurScoreInfoListWithStuInfo(curId));
+
+        }catch (Exception e){
+            jsonObject.put("code",500);
+            jsonObject.put("msg",e.getMessage());
+        }
+
+        return jsonObject;
+    }
+
 }

@@ -31,5 +31,5 @@ public interface StuInfoMapper {
 
     List<StuInfo> getStuInfoAllWithClassInfo();
 
-
+    List<StuInfo> getStuInfoAllByClassIdIsNull();
 }

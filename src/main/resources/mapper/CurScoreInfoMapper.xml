@@ -8,6 +8,26 @@
     <result column="cur_finalScore" jdbcType="DOUBLE" property="curFinalscore" />
     <result column="cur_sum_finalScore" jdbcType="DOUBLE" property="curSumFinalscore" />
   </resultMap>
+
+  <resultMap id="BaseResultMapWithStuInfo" type="com.qs304.student_checking_management_system.entity.CurScoreInfo">
+    <result column="cur_id" jdbcType="INTEGER" property="curId" />
+    <result column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <result column="cur_usuScore" jdbcType="DOUBLE" property="curUsuscore" />
+    <result column="cur_finalScore" jdbcType="DOUBLE" property="curFinalscore" />
+    <result column="cur_sum_finalScore" jdbcType="DOUBLE" property="curSumFinalscore" />
+    <association property="stuInfo" column="cur_score_info.stu_id">
+      <id property="stuId" column="stu_id"></id>
+      <result property="stuName" column="stu_name"></result>
+      <result property="stuSex" column="stu_sex"></result>
+      <result property="stuSchool" column="stu_school"></result>
+      <result property="stuPhonenumber" column="stu_phoneNumber"></result>
+    </association>
+  </resultMap>
+
+  <select id="getCurScoreInfoListWithStuInfo" resultMap="BaseResultMapWithStuInfo">
+    select * from stu_info,cur_score_info where stu_info.stu_id=cur_score_info.stu_id AND cur_score_info.cur_id=#{curId}
+  </select>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

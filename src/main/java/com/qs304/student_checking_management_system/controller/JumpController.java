@@ -22,4 +22,8 @@ public class JumpController {
     public String jumpGetClassInfo(){
         return "class_info";
     }
+    @RequestMapping("index/curInfo")
+    public String jumpGetCurInfo(){
+        return "cur_info";
+    }
 }

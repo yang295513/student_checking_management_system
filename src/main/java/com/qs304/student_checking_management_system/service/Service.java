@@ -35,7 +35,10 @@ public class Service {
      * @return
      */
     public List<StuInfo> getStuInfoAllWithClassInfo(){
-        return stuInfoMapper.getStuInfoAllWithClassInfo();
+        List<StuInfo> list=stuInfoMapper.getStuInfoAllWithClassInfo();
+        list.addAll(stuInfoMapper.getStuInfoAllByClassIdIsNull());
+
+        return list;
     }
 
     /**
@@ -149,6 +152,14 @@ public class Service {
      */
     public Integer deleteClassInfoById(Integer classId){
         return classInfoMapper.deleteByPrimaryKey(classId);
+    }
+
+    /**
+     * 查询指定课程的所有人分数信息
+     * @return
+     */
+    public List<CurScoreInfo> getCurScoreInfoListWithStuInfo(Integer curId){
+        return curScoreInfoMapper.getCurScoreInfoListWithStuInfo(curId);
     }
 
 }

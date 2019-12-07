@@ -5,6 +5,28 @@ public class CurScoreInfo {
 
     private Integer curId;
 
+    private StuInfo stuInfo;
+
+    public StuInfo getStuInfo() {
+        return stuInfo;
+    }
+
+    public void setStuInfo(StuInfo stuInfo) {
+        this.stuInfo = stuInfo;
+    }
+
+    @Override
+    public String toString() {
+        return "CurScoreInfo{" +
+                "stuId=" + stuId +
+                ", curId=" + curId +
+                ", stuInfo=" + stuInfo +
+                ", curUsuscore=" + curUsuscore +
+                ", curFinalscore=" + curFinalscore +
+                ", curSumFinalscore=" + curSumFinalscore +
+                '}';
+    }
+
     private Double curUsuscore;
 
     private Double curFinalscore;

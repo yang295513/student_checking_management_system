@@ -89,6 +89,59 @@
                         </tbody>
                     </table>
 
+                    <div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true"
+                         style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+
+                                    <i class="fa fa-laptop modal-icon"></i>
+                                    <h4 class="modal-title">添加学生信息</h4>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <!--                                    * @param stuId-->
+                                    <!--                                    * @param stuName-->
+                                    <!--                                    * @param stuSex-->
+                                    <!--                                    * @param stuSchool-->
+                                    <!--                                    * @param stuClassId-->
+                                    <!--                                    * @param stuPhonenumber-->
+                                    <div class="form-group">
+                                        <form id="stu_form1">
+                                            <label>学号</label>
+                                            <input type="text" id="id" disabled="" placeholder="学号" class="form-control">
+                                            <label>姓名</label>
+                                            <input name="stuName" id="name" type="text" placeholder="姓名" class="form-control">
+                                            <label>性别</label>
+                                            <select name="stuSex" id="sex" class="form-control">
+                                                <option value="F">女</option>
+                                                <option value="M">男</option>
+                                            </select>
+                                            <label>所属学校</label>
+                                            <select name="stuSchool" class="form-control">
+                                                <option value="安阳师范学院">安阳师范学院</option>
+                                            </select>
+                                            <label>所属班级</label>
+                                            <select id="class_list1" name="stuClassId" class="form-control">
+                                                <option value="" selected="selected">未分配</option>
+                                            </select>
+                                            <label>电话号码</label>
+                                            <input name="stuPhonenumber" id="number" type="text" placeholder="电话号码" class="form-control">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" onclick="add()">确认</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!--                    模态框-->
                     <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true"
                          style="display: none;">
@@ -184,7 +237,15 @@
 
 
 <script>
-    
+    // model("+hang.stuId+","+hang.stuName+","+hang.stuSex+","+hang.stuClassId+","+hang.stuPhonenumber+")
+    function model(stuId,stuName,stuSex,stuClassId,stuPhonenumber) {
+        console.log(stuInfo);
+        $("#id").val(stuId);
+        $("#name").val(sstuName);
+        $("#sex").val(stuSex);
+        $("#number").val(stuPhonenumber);
+        $("#class_list1").val(stuClassId);
+    }
     function add() {
         $.ajax({
             type:"post",
@@ -205,7 +266,21 @@
     }
     
     function del(id){
-
+        $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"../set/deleteStuInfoById",
+            data:{"stuId":id},
+            success:function (result) {
+                if(result.code==200){
+                    swal(result.msg).then(function (value) {
+                        window.location.reload();
+                    });
+                }else{
+                    swal(result.msg);
+                }
+            }
+        })
     }
     $(function () {
         $.ajax({
@@ -226,7 +301,8 @@
                                "                            <th>"+(hang.classInfo==null?'未分配班级':hang.classInfo.className)+"</th>\n" +
                                "                            <th>"+hang.stuPhonenumber+"</th>\n" +
                                "                            <th>\n" +
-                               "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.classId+")\">删除</button>\n" +
+                               "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.stuId+")\">删除</button>\n" +
+                            // "                                   <button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal1\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"model("+hang.stuId.toString()+","+hang.stuName.toString()+","+hang.stuSex.toString()+","+(hang.classInfo!=null?hang.classInfo.classId.toString():"")+","+hang.stuPhonenumber.toString()+")\">修改</button>\n" +
                                "                            </th>\n" +
                                "                        </tr>";
                         $("#tbody").append(html);
@@ -252,6 +328,7 @@
                             html+="<option value='"+hang.classId+"'>"+hang.className+"</option>";
                         }
                         $("#class_list").append(html);
+                        $("#class_list1").append(html);
                     }else{
                         swal(result.msg);
                     }

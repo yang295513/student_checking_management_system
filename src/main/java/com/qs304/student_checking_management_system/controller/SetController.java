@@ -2,6 +2,7 @@ package com.qs304.student_checking_management_system.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qs304.student_checking_management_system.entity.ClassInfo;
+import com.qs304.student_checking_management_system.entity.CurScoreInfo;
 import com.qs304.student_checking_management_system.entity.StuInfo;
 import com.qs304.student_checking_management_system.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,17 @@ public class SetController {
         JSONObject jsonObject=new JSONObject();
         HttpSession session=request.getSession();
         session.setAttribute("classId",classId);
+        jsonObject.put("code",200);
+        jsonObject.put("msg","设置成功");
+        return jsonObject;
+    }
+
+
+    @GetMapping("/setCurId")
+    public JSONObject addCurId(Integer curId, HttpServletRequest request){
+        JSONObject jsonObject=new JSONObject();
+        HttpSession session=request.getSession();
+        session.setAttribute("curId",curId);
         jsonObject.put("code",200);
         jsonObject.put("msg","设置成功");
         return jsonObject;
@@ -118,7 +130,7 @@ public class SetController {
 
 
     /**
-     * 根据主键删除班级信息//TODO 需要实现前端的删除功能
+     * 根据主键删除班级信息
      * @param classId 班级主键
      * @return
      */
@@ -142,5 +154,77 @@ public class SetController {
         return jsonObject;
     }
 
+    /**
+     * 修改个人信息
+     * @param stuName
+     * @param stuSex
+     * @param stuSchool
+     * @param stuClassId
+     * @param stuPhonenumber
+     */
+    @PostMapping(value = "/setSutInfoByStuId",produces = "application/json;charset=utf-8")
+    public JSONObject setStuInfoByStuId(String stuId,String stuName,String stuSex,String stuSchool,String stuClassId,String stuPhonenumber){
+        JSONObject jsonObject=new JSONObject();
+        StuInfo stuInfo=new StuInfo();
 
+        try {
+            stuInfo.setStuName(stuName);
+            stuInfo.setStuSex(stuSex);
+            stuInfo.setStuSchool(stuSchool);
+            stuInfo.setStuClassid(Integer.parseInt(stuClassId));
+            stuInfo.setStuPhonenumber(stuPhonenumber);
+
+            Integer rel=service.updateStuInfoById(Integer.parseInt(stuId),stuInfo);
+            if (rel!=0){
+                jsonObject.put("code",200);
+                jsonObject.put("msg","修改成功");
+            }else{
+                jsonObject.put("code",400);
+                jsonObject.put("msg","修改失败");
+            }
+        }catch (Exception e){
+            jsonObject.put("code",500);
+            jsonObject.put("msg","修改失败");
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * 根据学号和课程号修改学生成绩,-1就是没有成绩
+     * @param stuId
+     * @param usuScore
+     * @param finalScore
+     * @return
+     */
+    @PostMapping(value = "/setScore",produces = "application/json;charset=utf-8")
+    public JSONObject setCurScore(String stuId,String usuScore,String finalScore,HttpServletRequest request){
+        JSONObject jsonObject=new JSONObject();
+
+        try{
+            HttpSession session=request.getSession();
+            Integer curId=Integer.parseInt(session.getAttribute("curId").toString());
+            Integer stuId1=Integer.parseInt(stuId);
+
+            Double usu=Double.parseDouble(usuScore);
+            Double fin=Double.parseDouble(finalScore);
+            Double sum=usu*0.4+fin*0.6;
+
+            CurScoreInfo curScoreInfo=new CurScoreInfo();
+            curScoreInfo.setCurId(curId);
+            curScoreInfo.setCurUsuscore(usu);
+            curScoreInfo.setCurFinalscore(fin);
+            curScoreInfo.setCurSumFinalscore(sum);
+
+            service.score(stuId1,curScoreInfo);
+
+            jsonObject.put("code",200);
+            jsonObject.put("msg","修改成功");
+
+        }catch (Exception e){
+            jsonObject.put("code",500);
+            jsonObject.put("msg",e.getMessage());
+        }
+        return jsonObject;
+    }
 }

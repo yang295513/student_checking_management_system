@@ -90,4 +90,18 @@ public class Sql {
             System.out.println(stuInfo);
         }
     }
+    @Test
+    public void getStuInfoAllByClassIdIsNull(){
+        List<StuInfo> list=service.getStuInfoAllWithClassInfo();
+        for (StuInfo stuInfo : list) {
+            System.out.println(stuInfo);
+        }
+    }
+    @Test
+    public void getCurInfoWithStuInfo(){
+        List<CurScoreInfo> list=service.getCurScoreInfoListWithStuInfo(3);
+        for (CurScoreInfo curScoreInfo : list) {
+            System.out.println(curScoreInfo);
+        }
+    }
 }

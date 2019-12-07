@@ -156,6 +156,20 @@
 
 
 <script>
+    function get(id){
+        $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"../set/setCurId",
+            data:{"curId":id},
+            success:function (result) {
+                console.log(result);
+                if(result.code==200){
+                    document.location.href="curInfo";
+                }
+            }
+        })
+    }
     function del(id){
 
     }
@@ -171,7 +185,7 @@
                         var hang=result.data[i];
                         var html="                        <tr>\n" +
                                "                            <th>"+(i+1)+"</th>\n" +
-                            "                            <th>"+hang.curName+"</th>\n" +
+                            "                            <th><a onclick='get("+hang.curId+")'>"+hang.curName+"</a></th>\n" +
                             "                            <th>"+hang.curLearntime+"</th>\n" +
                             "                            <th>"+hang.curScore+"</th>\n" +
                                "                        </tr>";

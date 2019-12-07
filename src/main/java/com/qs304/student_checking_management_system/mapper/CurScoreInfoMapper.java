@@ -2,8 +2,9 @@ package com.qs304.student_checking_management_system.mapper;
 
 import com.qs304.student_checking_management_system.entity.CurScoreInfo;
 import com.qs304.student_checking_management_system.entity.CurScoreInfoExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CurScoreInfoMapper {
     long countByExample(CurScoreInfoExample example);
@@ -19,4 +20,6 @@ public interface CurScoreInfoMapper {
     int updateByExampleSelective(@Param("record") CurScoreInfo record, @Param("example") CurScoreInfoExample example);
 
     int updateByExample(@Param("record") CurScoreInfo record, @Param("example") CurScoreInfoExample example);
+
+    List<CurScoreInfo> getCurScoreInfoListWithStuInfo(Integer curId);
 }

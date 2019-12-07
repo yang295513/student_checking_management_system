@@ -82,6 +82,10 @@
     stu_id, stu_name, stu_sex, stu_school, stu_classId, stu_phoneNumber
   </sql>
 
+  <select id="getStuInfoAllByClassIdIsNull" resultMap="BaseResultMap">
+    select * from stu_info where stu_info.stu_classId is null
+  </select>
+
   <select id="getStuInfoAllWithClassInfo" resultMap="StuInfoWithClassInfoMap">
     select * from stu_info,class_info where stu_info.stu_classId=class_info.class_id
   </select>
