@@ -2,14 +2,15 @@ package com.qs304.student_checking_management_system.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qs304.student_checking_management_system.service.Service;
+import com.qs304.student_checking_management_system.utils.Duplicatechecking;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 @RequestMapping("/index")
 @RestController
@@ -116,6 +117,51 @@ public class IndexController {
             jsonObject.put("msg","获取成功");
             jsonObject.put("data",service.getCurScoreInfoListWithStuInfo(curId));
 
+        }catch (Exception e){
+            jsonObject.put("code",500);
+            jsonObject.put("msg",e.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    @PostMapping("/uploadFile")
+    public JSONObject upload(@RequestParam("file") MultipartFile file){
+        JSONObject jsonObject=new JSONObject();
+
+//        gatName()file
+//        getSize()1141
+//        getContentType()text/plain
+//        getOriginalFilename()2019年算法艺术社获奖名单.txt
+        try {
+            if(file.getOriginalFilename().endsWith(".txt")==true){//普通文本
+
+                byte[] bytes=new byte[2048];
+
+                InputStream inputStream=file.getInputStream();
+                BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
+
+                String source=new String();
+
+                int in;
+
+                while((in=bufferedInputStream.read(bytes))!=-1){
+                    String str=new String(bytes,0,in,"gbk");
+                    source+=str;
+                }
+                bufferedInputStream.close();
+
+                Duplicatechecking duplicatechecking=new Duplicatechecking();
+                double repole=duplicatechecking.localCompare(source,10);
+                jsonObject.put("code",200);
+                jsonObject.put("msg","重复率为:"+repole*100+"%");
+
+            }else if (file.getOriginalFilename().endsWith(".docx")){//excel
+
+            }else{
+                jsonObject.put("code",400);
+                jsonObject.put("msg","文件格式不合法");
+            }
         }catch (Exception e){
             jsonObject.put("code",500);
             jsonObject.put("msg",e.getMessage());

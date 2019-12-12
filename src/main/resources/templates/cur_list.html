@@ -40,7 +40,7 @@
                             <a aria-expanded="false" role="button" href="curList"> 学生分数管理</a>
                         </li>
                         <li class="dropdown">
-                            <a aria-expanded="false" role="button" href="join_team_list.html"> 查重管理</a>
+                            <a aria-expanded="false" role="button" href="repeat"> 查重管理</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
@@ -165,7 +165,7 @@
             success:function (result) {
                 console.log(result);
                 if(result.code==200){
-                    document.location.href="curInfo";
+                    document.location.href="repeat";
                 }
             }
         })
@@ -177,7 +177,7 @@
         $.ajax({
             type:"get",
             dataType:"json",
-            url:"getCurInfoAll",
+            url:"getrepeatAll",
             success:function (result) {
                 if (result.code==200){
 

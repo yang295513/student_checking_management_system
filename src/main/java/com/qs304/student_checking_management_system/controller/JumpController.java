@@ -26,4 +26,8 @@ public class JumpController {
     public String jumpGetCurInfo(){
         return "cur_info";
     }
+    @RequestMapping("index/repeat")
+    public String jumpGetRepeat(){
+        return "repeat";
+    }
 }
