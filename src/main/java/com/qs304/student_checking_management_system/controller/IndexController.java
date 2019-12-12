@@ -146,7 +146,7 @@ public class IndexController {
                 int in;
 
                 while((in=bufferedInputStream.read(bytes))!=-1){
-                    String str=new String(bytes,0,in,"gbk");
+                    String str=new String(bytes,0,in,"utf-8");
                     source+=str;
                 }
                 bufferedInputStream.close();

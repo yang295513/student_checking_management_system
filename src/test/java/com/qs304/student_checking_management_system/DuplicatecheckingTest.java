@@ -10,17 +10,16 @@ public class DuplicatecheckingTest {
     @Test
     public void test() throws Exception {
 
-        String a="如果底层流上的第一个read返回-1以指示文      件结束，则此方法返回-1 。 否则，此方法返回实际读取的字符数。 \n" +
-                "鼓励这个类的子类，但不是必需的，尝试以相同的方式读取尽可能多的字符。 \n" +
-                "\n" +
-                "通常这种方法从这个流的字符缓冲区中获取字符，并根据需要从底层流中填充它。 但是，如果缓冲区为空，则该标记无效，并且所请求的长度至少与缓冲区一样大，则该方法将直接从基础流中读取字符到给定的数组中。 因此冗余BufferedReader将不会不必要地复制数据。\n";
-        String b="如果底层流上的第一个read返回-1以指示文件结束，则此方法返回-1 。 否则，此方法返回实际读取的字符数。 \n" +
-                "鼓励这个类的子类，但不是必需的，尝试以相同的方式读取尽可能多的字符。 \n" +
-                "\n" +
-                "通常这种方法从这个流的字符缓冲区中获取字符，     。 但是，如果缓冲区为空，     ，并且所请求的长度至少与缓冲区一样大，晚上打算打发斯蒂芬。因此冗余BufferedReader将不会不必要地复制数据。\n";
+        String a="栈是一种先进后出（FILO，First In Last Out）的数据结构．如下图1,2,3,4顺序进栈，那么一种可能的进出栈顺序是：1In→2In→2Out→3In→4In→4Out→3Out→1Out1In→2In→2Out→3In→4In→4Out→3Out→1Out1In→2In→2Out→3In→4In→4Out→3Out→1Out, 于是出栈序列为1,3,4,2。对于一个还有nnn个数的数组来说，假设第kkk个为最后出栈那么有f(k)f(k)f(k)在它前面出栈，以及f(n−k)f(n-k)f(n−k)在它后面出栈，因此对于第k个数最后出栈它有f(k)f(n−k)f(k)f(n-k)f(k)f(n−k)种方式，又因为所以数可能是最后一个出栈因此所有可能就是一个卡特兰数。\n" +
+                "————————————————\n" +
+                "版权声明：本文为CSDN博主「Mr_Leeeee」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。\n" +
+                "原文链接：https://blog.csdn.net/zhenguipa8450/article/details/88828265";
+        String b="栈是一种先进后出（FILO，First In Last Out）的数据结构．那么一种可能的进出栈顺序是：1In→2In→2Out→3In→4In→4Out→3Out→1Out1In→2In→2Out→3In→4In→4Out→3Out→1Out1In→2In→2Out→3In→4In→4Out→3Out→1Out, 于是出栈序列为1,3,4,2。对于一个还有nnn个数的数组来说，假设第kkk个为最后出栈那么有f(k)f(k)f(k)在它前面出栈，以及f(n−k)f(n-k)f(n−k)在它后面出栈，因此对于第k个数最后出栈它有f(k)f(n−k)f(k)f(n-k)f(k)f(n−k)种方式，又因为所以数可能是最后一个出栈因此所有可能就是一个卡特兰数。\n" +
+                "————————————————\n" +
+                "版权声明：本文为CSDN博主「Mr_Leeeee」的原创文章，遵循 CC 4.0 BY-SA 版权协议，\n";
 
 //        System.out.println(duplicatechecking.localCompare("版权声明：本文为CSDN博主「Mr_Leeeee」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。",10));
-        System.out.println(duplicatechecking.compare(a,b,10));
+        System.out.println(duplicatechecking.compare(a,b,6));
     }
 
 }

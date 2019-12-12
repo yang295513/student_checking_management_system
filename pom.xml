@@ -17,6 +17,29 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
+    <!--jar包拉取的地址-->
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <name>maven-public</name>
+            <url>http://192.168.134.131:8081/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <!--jar包上传的地址-->
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <url>http://47.75.143.53:8081/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>maven-snapshots</name>
+            <url>http://47.75.143.53:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
