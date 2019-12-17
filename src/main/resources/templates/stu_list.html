@@ -58,9 +58,9 @@
             <!--            表格-->
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>班级列表 </h5>
+                    <h5>学生列表 </h5>
                     <div class="ibox-tools">
-                        <button class="btn btn-w-m btn-info" data-toggle="modal" data-target="#myModal">添加</button>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">添加</button>
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
@@ -319,8 +319,8 @@
                                "                            <th>"+(hang.classInfo==null?'未分配班级':hang.classInfo.className)+"</th>\n" +
                                "                            <th>"+hang.stuPhonenumber+"</th>\n" +
                                "                            <th>\n" +
-                               "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.stuId+")\">删除</button>\n" +
-                            "                                   <button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal1\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"model("+hang.stuId.toString()+",'"+hang.stuName.toString()+"','"+hang.stuSex.toString()+"','"+(hang.classInfo!=null?hang.classInfo.classId.toString():"null")+"','"+hang.stuPhonenumber.toString()+"')\">修改</button>\n" +
+                               "                                <button type=\"button\" class=\"btn btn-w-m btn-danger btn-xs\" onclick=\"del("+hang.stuId+")\">删除</button>\n" +
+                            "                                   <button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal1\" class=\"btn btn-w-m btn-warning btn-xs\" onclick=\"model("+hang.stuId.toString()+",'"+hang.stuName.toString()+"','"+hang.stuSex.toString()+"','"+(hang.classInfo!=null?hang.classInfo.classId.toString():"null")+"','"+hang.stuPhonenumber.toString()+"')\">修改</button>\n" +
                                "                            </th>\n" +
                                "                        </tr>";
                         $("#tbody").append(html);

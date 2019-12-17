@@ -57,7 +57,7 @@
             <!--            表格-->
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>班级列表 </h5>
+                    <h5>学生成绩 </h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -166,17 +166,25 @@
 
         // String stuId,String usuScore,String finalScore
         console.log(usu,fin,sum,$("#"+fin.toString()).val());
-
-        $.ajax({
-            type:"post",
-            dataType:"json",
-            url:"../set/setScore",
-            data:{"usuScore":$("#"+usu).val(),"stuId":sutId,"finalScore":$("#"+fin).val()},
-            success:function (result) {
-                swal(result.msg);
-                window.location.reload();
+        if($("#"+usu).val()<=100){
+            if($("#"+fin).val()<=100){
+                $.ajax({
+                    type:"post",
+                    dataType:"json",
+                    url:"../set/setScore",
+                    data:{"usuScore":$("#"+usu).val(),"stuId":sutId,"finalScore":$("#"+fin).val()},
+                    success:function (result) {
+                        swal(result.msg).then(function (value) {
+                            window.location.reload();
+                        });
+                    }
+                });
+            }else{
+                swal("分数不合法！").then();
             }
-        });
+        }else {
+            swal("分数不合法！").then();
+        }
     }
 
     function del(id){
@@ -197,9 +205,9 @@
                             "                        <th>"+hang.stuInfo.stuName+"</th>\n" +
                             "                        <th><form><input id='"+("usu"+hang.stuId)+"' type=\"text\" placeholder=\"平时成绩\" value='"+(hang.curUsuscore!=null?hang.curUsuscore:0)+"'></th>\n" +
                             "                        <th><input id='"+("fin"+hang.stuId)+"' type=\"text\" placeholder=\"期末成绩\" value='"+(hang.curFinalscore!=null?hang.curFinalscore:0)+"'></th>\n" +
-                            "                        <th><input id='"+("sum"+hang.stuId)+"' type=\"text\" placeholder=\"最终成绩\" value='"+(hang.curSumFinalscore!=null?hang.curSumFinalscore:0)+"'></th>\n" +
+                            "                        <th><span>"+(hang.curSumFinalscore!=null?hang.curSumFinalscore:0)+"</span></th>\n" +
                             "                        <th>\n" +
-                            "                            <button onclick='setScore("+hang.stuId+")'>确认</button><button>取消</button>\n" +
+                            "                            <button class='btn-danger' onclick='setScore("+hang.stuId+")'>确认</button><button class='btn-info'>取消</button>\n" +
                             "                        </th></form></tr>";
                         $("#tbody").append(html);
                     }

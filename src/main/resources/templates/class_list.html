@@ -59,7 +59,7 @@
                 <div class="ibox-title">
                     <h5>班级列表 </h5>
                     <div class="ibox-tools">
-                        <button class="btn btn-w-m btn-info" data-toggle="modal" data-target="#myModal">添加</button>
+                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">添加班级</button>
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
@@ -98,7 +98,7 @@
                                 <div class="modal-body">
 
 
-                                    <div class="form-group"><label>班级名</label> <input id="class_name" type="email"
+                                    <div class="form-group"><label>班级名</label> <input id="class_name" type="text"
                                                                                        placeholder="班级名称"
                                                                                        class="form-control"></div>
                                 </div>
@@ -153,22 +153,28 @@
 <script>
     
     function add() {
-        $.ajax({
-            type:"post",
-            dataType:"json",
-            url:"../set/addClassInfo",
-            data:{"className":$("#class_name").val()},
-            success:function (result) {
-                console.log(result);
-                if(result.code==200){
-                    swal("添加成功").then(function (value) {
-                        window.location.reload();
-                    })
-                }else{
-                    swal("添加失败");
+        var className=$("#class_name").val();
+        if(className!=null&&className.length<=20&&className.length>0){
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                url:"../set/addClassInfo",
+                data:{"className":$("#class_name").val()},
+                success:function (result) {
+                    console.log(result);
+                    if(result.code==200){
+                        swal("添加成功").then(function (value) {
+                            window.location.reload();
+                        })
+                    }else{
+                        swal("添加失败");
+                    }
                 }
-            }
-        })
+            })
+        }else{
+            swal("班级名称不得超过20个字符,且不能为空").then();
+        }
+
     }
     
     function del(id){
@@ -216,7 +222,7 @@
                             "                            <th>"+(i+1)+"</th>\n" +
                             "                           <th><a onclick='get("+hang.classId+")'>"+hang.className+"</a></th>\n" +
                         "                            <th>\n" +
-                        "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.classId+")\">删除</button>\n" +
+                        "                                <button type=\"button\" class=\"btn btn-w-m btn-danger btn-xs\" onclick=\"del("+hang.classId+")\">删除</button>\n" +
                         "                            </th>\n" +
                         "                        </tr>";
                         $("#tbody").append(html);
