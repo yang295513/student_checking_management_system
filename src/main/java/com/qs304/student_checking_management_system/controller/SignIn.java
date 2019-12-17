@@ -22,7 +22,7 @@ public class SignIn {
                 session.setAttribute("login","true");
                 jsonObject.put("code",302);
                 jsonObject.put("msg","登陆成功");
-                jsonObject.put("url","index/classInfo");
+                jsonObject.put("url","index/classList");
             }else {
                 jsonObject.put("code",400);
                 jsonObject.put("msg","账号或者密码错误");

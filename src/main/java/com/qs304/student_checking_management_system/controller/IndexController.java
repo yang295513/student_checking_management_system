@@ -3,6 +3,7 @@ package com.qs304.student_checking_management_system.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.qs304.student_checking_management_system.service.Service;
 import com.qs304.student_checking_management_system.utils.Duplicatechecking;
+import com.qs304.student_checking_management_system.utils.ReadWord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -133,14 +134,15 @@ public class IndexController {
 //        getSize()1141
 //        getContentType()text/plain
 //        getOriginalFilename()2019年算法艺术社获奖名单.txt
+        byte[] bytes=new byte[2048];
+
+
+        Duplicatechecking duplicatechecking=new Duplicatechecking();
         try {
             if(file.getOriginalFilename().endsWith(".txt")==true){//普通文本
 
-                byte[] bytes=new byte[2048];
-
                 InputStream inputStream=file.getInputStream();
                 BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
-
                 String source=new String();
 
                 int in;
@@ -150,14 +152,16 @@ public class IndexController {
                     source+=str;
                 }
                 bufferedInputStream.close();
-
-                Duplicatechecking duplicatechecking=new Duplicatechecking();
                 double repole=duplicatechecking.localCompare(source,10);
                 jsonObject.put("code",200);
                 jsonObject.put("msg","重复率为:"+repole*100+"%");
 
-            }else if (file.getOriginalFilename().endsWith(".docx")){//excel
-
+            }else if (file.getOriginalFilename().endsWith(".doc")){//word
+                ReadWord readWord=new ReadWord();
+                String source=readWord.readWord(file.getInputStream(),readWord.doc);
+                double repole=duplicatechecking.localCompare(source,10);
+                jsonObject.put("code",200);
+                jsonObject.put("msg","重复率为:"+repole*100+"%");
             }else{
                 jsonObject.put("code",400);
                 jsonObject.put("msg","文件格式不合法");

@@ -58,11 +58,9 @@ public class Duplicatechecking {
 
             bufferedReader.close();
 
-//            System.out.println(targetSource);
 
             Double item=compare(sourceString,targetSource,level);
 
-//            System.out.println("查重率为:"+item);
 
             if(repetition<item){
                 repetition=item;
@@ -90,6 +88,8 @@ public class Duplicatechecking {
             targetString = item;
         }
 
+        sourceString=removeSpace(sourceString);
+        targetString=removeSpace(targetString);
 
         cutting(sourceString, targetString, level);
         for (String s : source) {
@@ -158,12 +158,13 @@ public class Duplicatechecking {
                 break;
         }
 
-//        for (String s : source) {
-//            System.out.println(s);
-//        }
-//        for (String s : targer) {
-//            System.out.println(s);
-//        }
+        for (String s : source) {
+            System.out.println(s);
+        }
+        System.out.println("---------------------------------------------------");
+        for (String s : targer) {
+            System.out.println(s);
+        }
 
     }
 
@@ -172,6 +173,17 @@ public class Duplicatechecking {
             return true;
         }
         return false;
+    }
+
+    public String removeSpace(String str){
+        int len=str.length();
+        String rel=new String();
+        for(int i=0;i<len;i++){
+            if(str.charAt(i)!=' '&&str.charAt(i)!='\n'){
+                rel+=str.charAt(i);
+            }
+        }
+        return rel;
     }
 
 }
