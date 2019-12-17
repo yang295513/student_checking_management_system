@@ -45,7 +45,7 @@
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="login.html">
+                            <a href="../signUp">
                                 <i class="fa fa-sign-out"></i> 退出登录
                             </a>
                         </li>
@@ -156,6 +156,7 @@
 
 
 <script>
+
     function get(id){
         $.ajax({
             type:"get",
@@ -165,7 +166,7 @@
             success:function (result) {
                 console.log(result);
                 if(result.code==200){
-                    document.location.href="repeat";
+                    document.location.href="curInfo";
                 }
             }
         })
@@ -177,7 +178,7 @@
         $.ajax({
             type:"get",
             dataType:"json",
-            url:"getrepeatAll",
+            url:"getCurInfoAll",
             success:function (result) {
                 if (result.code==200){
 

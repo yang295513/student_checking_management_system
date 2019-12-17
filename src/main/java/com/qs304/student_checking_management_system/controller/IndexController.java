@@ -101,7 +101,7 @@ public class IndexController {
     }
 
     /**
-     * 获取指定班级号的所有学生成绩
+     * 查询指定课程的所有人分数信息
      * @param request
      * @return
      */
@@ -169,5 +169,4 @@ public class IndexController {
 
         return jsonObject;
     }
-
 }

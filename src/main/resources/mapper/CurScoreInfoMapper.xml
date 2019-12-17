@@ -28,6 +28,10 @@
     select * from stu_info,cur_score_info where stu_info.stu_id=cur_score_info.stu_id AND cur_score_info.cur_id=#{curId}
   </select>
 
+<!--  <select id="getClassScoreInfoListWithStuInfo" resultMap="BaseResultMapWithStuInfo">-->
+<!--    select * from stu_info,cur_score_info where stu_info.stu_id=cur_score_info.stu_id AND cur_score_info.cur_id=#{curId}-->
+<!--  </select>-->
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

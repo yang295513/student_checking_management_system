@@ -45,7 +45,7 @@
                     </ul>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="login.html">
+                            <a href="../signUp">
                                 <i class="fa fa-sign-out"></i> 退出登录
                             </a>
                         </li>
@@ -98,7 +98,7 @@
                                             aria-hidden="true">×</span><span class="sr-only">Close</span></button>
 
                                     <i class="fa fa-laptop modal-icon"></i>
-                                    <h4 class="modal-title">添加学生信息</h4>
+                                    <h4 class="modal-title">修改学生信息</h4>
 
                                 </div>
 
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <form id="stu_form1">
                                             <label>学号</label>
-                                            <input type="text" id="id" disabled="" placeholder="学号" class="form-control">
+                                            <input name="stuId" type="text" id="id"  placeholder="学号" class="form-control">
                                             <label>姓名</label>
                                             <input name="stuName" id="name" type="text" placeholder="姓名" class="form-control">
                                             <label>性别</label>
@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                    <button type="button" class="btn btn-primary" onclick="add()">确认</button>
+                                    <button type="button" class="btn btn-primary" onclick="modify()">确认</button>
                                 </div>
                             </div>
                         </div>
@@ -237,11 +237,29 @@
 
 
 <script>
+    function modify() {
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            url:"../set/setSutInfoByStuId",
+            data:$("#stu_form1").serialize(),
+            success:function (result) {
+                console.log(result);
+                if(result.code==200){
+                    swal("添加成功").then(function (value) {
+                        window.location.reload();
+                    })
+                }else{
+                    swal("添加失败");
+                }
+            }
+        })
+    }
     // model("+hang.stuId+","+hang.stuName+","+hang.stuSex+","+hang.stuClassId+","+hang.stuPhonenumber+")
     function model(stuId,stuName,stuSex,stuClassId,stuPhonenumber) {
-        console.log(stuInfo);
+        console.log(stuId+stuName+stuSex+stuPhonenumber+stuClassId);
         $("#id").val(stuId);
-        $("#name").val(sstuName);
+        $("#name").val(stuName);
         $("#sex").val(stuSex);
         $("#number").val(stuPhonenumber);
         $("#class_list1").val(stuClassId);
@@ -302,7 +320,7 @@
                                "                            <th>"+hang.stuPhonenumber+"</th>\n" +
                                "                            <th>\n" +
                                "                                <button type=\"button\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"del("+hang.stuId+")\">删除</button>\n" +
-                            // "                                   <button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal1\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"model("+hang.stuId.toString()+","+hang.stuName.toString()+","+hang.stuSex.toString()+","+(hang.classInfo!=null?hang.classInfo.classId.toString():"")+","+hang.stuPhonenumber.toString()+")\">修改</button>\n" +
+                            "                                   <button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal1\" class=\"btn btn-w-m btn-info btn-xs\" onclick=\"model("+hang.stuId.toString()+",'"+hang.stuName.toString()+"','"+hang.stuSex.toString()+"','"+(hang.classInfo!=null?hang.classInfo.classId.toString():"null")+"','"+hang.stuPhonenumber.toString()+"')\">修改</button>\n" +
                                "                            </th>\n" +
                                "                        </tr>";
                         $("#tbody").append(html);

@@ -22,4 +22,5 @@ public interface CurScoreInfoMapper {
     int updateByExample(@Param("record") CurScoreInfo record, @Param("example") CurScoreInfoExample example);
 
     List<CurScoreInfo> getCurScoreInfoListWithStuInfo(Integer curId);
+    List<CurScoreInfo> getClassScoreInfoListWithStuInfo(Integer classId);
 }

@@ -58,11 +58,11 @@ public class Duplicatechecking {
 
             bufferedReader.close();
 
-            System.out.println(targetSource);
+//            System.out.println(targetSource);
 
             Double item=compare(sourceString,targetSource,level);
 
-            System.out.println("查重率为:"+item);
+//            System.out.println("查重率为:"+item);
 
             if(repetition<item){
                 repetition=item;
@@ -102,7 +102,7 @@ public class Duplicatechecking {
 //        rel.addAll(source);
 //        rel.addAll(targer);
 
-        System.out.println(count + "--" + source.size());
+//        System.out.println(count + "--" + source.size());
 
         return new Double(count / (double) (source.size()));
     }
@@ -158,12 +158,12 @@ public class Duplicatechecking {
                 break;
         }
 
-        for (String s : source) {
-            System.out.println(s);
-        }
-        for (String s : targer) {
-            System.out.println(s);
-        }
+//        for (String s : source) {
+//            System.out.println(s);
+//        }
+//        for (String s : targer) {
+//            System.out.println(s);
+//        }
 
     }
 

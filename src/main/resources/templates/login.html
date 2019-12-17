@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>INSPINIA | Login</title>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+		<link href="css/animate.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+
+	</head>
+
+	<body class="gray-bg">
+
+		<div class="middle-box text-center loginscreen animated fadeInDown">
+			<div>
+				<div>
+
+					<h1 class="logo-name">IN+</h1>
+
+				</div>
+				<h3>欢迎您使用</h3>
+				<p>
+					团队报名请登陆团队账户，个人账号报名请登陆个人账号
+				</p>
+				<div class="tabbable" id="tabs-215554">
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a href="#panel-967992" data-toggle="tab">个人账号</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="panel-967992">
+							<p>
+								<form id="form" class="m-t" role="form" method="post">
+									
+									<div class="alert alert-danger alert-dismissable">
+									    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+									        时间是一切财富中最宝贵的财富。 <a class="alert-link" href="#">小明</a>.
+									 </div>
+									 
+									<div class="form-group">
+										<input id="mem_id" name="account" type="text" class="form-control" placeholder="账号" required="">
+										<div id="log-mem-id" class="alert alert-danger alert-dismissable" hidden="false">
+										</div>
+									</div>
+									<div class="form-group">
+										<input type="password"name="password" class="form-control" placeholder="密码" required="">
+									</div>
+									<button id="mem_submit" type="button" class="btn btn-primary block full-width m-b">登陆</button>
+								
+									<a href="#"><small>忘记密码?</small></a>
+									<p class="text-muted text-center"><small>没有账号吗？</small></p>
+									<a class="btn btn-sm btn-white btn-block" href="register.html">创建账号</a>
+								</form>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				
+				<p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+			</div>
+		</div>
+
+		<!-- Mainly scripts -->
+		<script src="js/jquery-2.1.1.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	</body>
+	<script>
+		$(document).ready(function() {
+			//登陆
+			$("#mem_submit").click(function () {
+				var memId=$("#mem_id").val();
+				if(memId.length==0){
+					$("#log-mem-id").show().html("<buttonaria-hidden='true' data-dismiss='alert' class='close' type='button'>×</button><p>密码长度不足</p>");
+				}
+				else{
+					$.ajax({
+						url:"login",
+						data:$("#form").serialize(),
+						dataType:"json",
+						type:"post",
+						success:function (result) {
+							if(result.code==302){
+								window.location.href=result.url;
+							}else{
+								swal(result.msg);
+							}
+						}
+					});
+
+				}
+			});
+		});
+	</script>
+</html>
