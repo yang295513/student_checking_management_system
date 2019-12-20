@@ -10,8 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 @RequestMapping("/index")
 @RestController
@@ -126,6 +127,11 @@ public class IndexController {
         return jsonObject;
     }
 
+    /**
+     * 上传文件
+     * @param file
+     * @return
+     */
     @PostMapping("/uploadFile")
     public JSONObject upload(@RequestParam("file") MultipartFile file){
         JSONObject jsonObject=new JSONObject();
@@ -142,16 +148,20 @@ public class IndexController {
             if(file.getOriginalFilename().endsWith(".txt")==true){//普通文本
 
                 InputStream inputStream=file.getInputStream();
-                BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
+                //BufferedInputStream bufferedInputStream=new BufferedInputStream(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"utf-8"));
                 String source=new String();
 
                 int in;
-
-                while((in=bufferedInputStream.read(bytes))!=-1){
-                    String str=new String(bytes,0,in,"utf-8");
-                    source+=str;
+                String item=new String();
+                while((item=bufferedReader.readLine())!=null){
+                    source+=item;
                 }
-                bufferedInputStream.close();
+//                while((in=bufferedInputStream.read(bytes))!=-1){
+//                    String str=new String(bytes,0,in,"utf-8");
+//                    source+=str;
+//                }
+//                bufferedInputStream.close();
                 double repole=duplicatechecking.localCompare(source,10);
                 jsonObject.put("code",200);
                 jsonObject.put("msg","重复率为:"+repole*100+"%");

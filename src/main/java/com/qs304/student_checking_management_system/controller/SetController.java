@@ -21,6 +21,12 @@ public class SetController {
     @Autowired
     Service service;
 
+    /**
+     * 设置班级号
+     * @param classId
+     * @param request
+     * @return
+     */
     @GetMapping("/setClassId")
     public JSONObject addClassId(Integer classId, HttpServletRequest request){
         JSONObject jsonObject=new JSONObject();
@@ -31,7 +37,12 @@ public class SetController {
         return jsonObject;
     }
 
-
+    /**
+     * 设置课程号
+     * @param curId
+     * @param request
+     * @return
+     */
     @GetMapping("/setCurId")
     public JSONObject addCurId(Integer curId, HttpServletRequest request){
         JSONObject jsonObject=new JSONObject();
@@ -64,7 +75,7 @@ public class SetController {
     }
 
     /**
-     *
+     *添加学生，添加学生的同时给改学生选课
      * @param stuId
      * @param stuName
      * @param stuSex
@@ -86,7 +97,8 @@ public class SetController {
             stuInfo.setStuClassid(Integer.parseInt(stuClassId));
             stuInfo.setStuPhonenumber(stuPhonenumber);
 
-            Integer rel=service.addStuInfo(stuInfo);
+            Integer rel=service.addStuInfo(stuInfo);//插入学生
+            service.courseSelection(stuInfo.getStuId());//给该学生选课
             if(rel!=0){
                 jsonObject.put("code",200);
                 jsonObject.put("msg","成功");

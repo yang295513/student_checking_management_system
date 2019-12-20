@@ -6,9 +6,11 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-
+/**
+ * 读取word
+ */
 public class ReadWord {
-    public String doc = "doc";
+    public String doc = "doc";//格式
 
     public String readWord(InputStream inputStream, String suffix) {
         String buffer = "";
@@ -23,14 +25,14 @@ public class ReadWord {
         }catch (Exception e){
             e.printStackTrace();
         }
+        String rel=null;
 
-
-//        System.out.println(buffer);
         try {
-            String rel=new String(buffer.getBytes(),"utf-8");
+            rel=new String(buffer.getBytes("gbk"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return buffer;
+        System.out.println(rel);
+        return rel;
     }
 }

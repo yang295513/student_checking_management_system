@@ -68,7 +68,7 @@ public class Sql {
      */
     @Test
     public void cur(){
-        System.out.println(service.courseSelection(2));
+        System.out.println(service.courseSelection(3));
     }
 
     /**
